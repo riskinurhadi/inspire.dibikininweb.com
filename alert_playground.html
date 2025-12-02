@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signature Alerts | Documentation & Demo</title>
+    <title>Dibikinin Alerts | Documentation & Demo</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -113,7 +113,7 @@
         <div class="container">
             <a class="navbar-brand" href="index.html">
                 <i class="fas fa-chevron-left me-2 text-muted fs-6"></i>
-                Signature<span>Alerts</span>.
+                Dibikinin<span>Alerts</span>.
             </a>
             <div class="ms-auto">
                 <a href="https://github.com" class="text-dark fs-4"><i class="fab fa-github"></i></a>
@@ -196,12 +196,12 @@
                 <div class="col-lg-8">
                     <h2 class="fw-bold mb-4">Cara Penggunaan</h2>
                     
-                    <p class="text-muted">Cukup panggil fungsi <code>Signature.fire()</code> di dalam script kamu. Library ini sudah menangani Promise, jadi kamu bisa menggunakan <code>.then()</code> atau <code>await</code>.</p>
+                    <p class="text-muted">Cukup panggil fungsi <code>Dibikinin.fire()</code> di dalam script kamu. Library ini sudah menangani Promise, jadi kamu bisa menggunakan <code>.then()</code> atau <code>await</code>.</p>
 
                     <h5 class="fw-bold mt-5">1. Basic Usage</h5>
                     <div class="code-block">
 <pre><code class="javascript">// Panggil alert sederhana
-Signature.fire({
+Dibikinin.fire({
     title: 'Halo!',
     message: 'Ini adalah pesan alert sederhana.',
     type: 'info'
@@ -213,7 +213,7 @@ Signature.fire({
                     <div class="code-block">
 <pre><code class="javascript">async function hapusData() {
     // Alert akan muncul dan script akan 'pause' di sini
-    await Signature.fire({
+    await Dibikinin.fire({
         title: 'Hapus Data?',
         message: 'Data tidak bisa dikembalikan setelah dihapus.',
         type: 'warning',
@@ -234,21 +234,21 @@ Signature.fire({
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p class="text-muted small mb-0">&copy; 2024 Signature Alerts Lib. Part of DevStudio Portfolio.</p>
+            <p class="text-muted small mb-0">&copy; 2024 Dibikinin Alerts Lib. Part of DevStudio Portfolio.</p>
         </div>
     </footer>
 
 
     <!-- ========================================== -->
-    <!-- THE SIGNATURE ALERT LIBRARY (EMBEDDED) -->
+    <!-- THE DIBIKININ ALERT LIBRARY (EMBEDDED) -->
     <!-- ========================================== -->
     <script>
         /**
-         * SIGNATURE ALERT LIBRARY (SweetAlert2 Style)
-         * Versi: 1.0.0
+         * DIBIKININ ALERT LIBRARY (SweetAlert2 Style)
+         * Versi: 1.0.2 (Renamed from Signature)
          * Features: Zero Dependencies, Modern UI, Promise Based.
          */
-        class SignatureAlert {
+        class DibikininAlerts {
             constructor() {
                 this.injectStyles();
                 this.activeElement = null;
@@ -256,10 +256,10 @@ Signature.fire({
 
             // 1. INJECT CSS
             injectStyles() {
-                if (document.getElementById('signature-alert-style')) return;
+                if (document.getElementById('dibikinin-alert-style')) return;
 
                 const style = document.createElement('style');
-                style.id = 'signature-alert-style';
+                style.id = 'dibikinin-alert-style';
                 style.textContent = `
                     :root {
                         --sa-bg: #ffffff;
@@ -343,7 +343,11 @@ Signature.fire({
             // 3. FIRE
             fire({ title = 'Alert', message = '', type = 'info', buttonText = 'OK' }) {
                 return new Promise((resolve) => {
-                    if (this.activeElement) document.body.removeChild(this.activeElement);
+                    // Cek apakah elemen ada di DOM sebelum removeChild
+                    if (this.activeElement && document.body.contains(this.activeElement)) {
+                        document.body.removeChild(this.activeElement);
+                    }
+                    this.activeElement = null;
 
                     const overlay = document.createElement('div');
                     overlay.className = 'sa-overlay';
@@ -367,7 +371,12 @@ Signature.fire({
                         btn.onclick = () => {
                             overlay.classList.remove('show');
                             setTimeout(() => {
-                                if (document.body.contains(overlay)) document.body.removeChild(overlay);
+                                if (document.body.contains(overlay)) {
+                                    document.body.removeChild(overlay);
+                                }
+                                if (this.activeElement === overlay) {
+                                    this.activeElement = null;
+                                }
                                 resolve(true);
                             }, 300);
                         };
@@ -376,8 +385,8 @@ Signature.fire({
             }
         }
 
-        // Init Global
-        window.Signature = new SignatureAlert();
+        // Init Global dengan nama "Dibikinin"
+        window.Dibikinin = new DibikininAlerts();
     </script>
 
     <!-- Page Scripts -->
@@ -389,9 +398,9 @@ Signature.fire({
         function scrollToDemo() { document.getElementById('demo').scrollIntoView({ behavior: 'smooth' }); }
         function scrollToDocs() { document.getElementById('docs').scrollIntoView({ behavior: 'smooth' }); }
 
-        // Demo Actions
+        // Demo Actions (Updated to Dibikinin.fire)
         function testSuccess() {
-            Signature.fire({
+            Dibikinin.fire({
                 title: 'Berhasil!',
                 message: 'Data kamu telah berhasil disimpan ke database.',
                 type: 'success',
@@ -400,7 +409,7 @@ Signature.fire({
         }
 
         function testError() {
-            Signature.fire({
+            Dibikinin.fire({
                 title: 'Gagal Login',
                 message: 'Username atau password yang dimasukkan salah.',
                 type: 'error',
@@ -409,7 +418,7 @@ Signature.fire({
         }
 
         function testWarning() {
-            Signature.fire({
+            Dibikinin.fire({
                 title: 'Yakin Hapus?',
                 message: 'Data ini tidak bisa dikembalikan lagi loh.',
                 type: 'warning',
@@ -418,7 +427,7 @@ Signature.fire({
         }
 
         function testInfo() {
-            Signature.fire({
+            Dibikinin.fire({
                 title: 'Update Tersedia',
                 message: 'Versi baru 2.0 telah tersedia untuk diunduh.',
                 type: 'info',
