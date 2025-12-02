@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Alerts | Documentation & Demo</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap 5 (Untuk Layout) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Highlight.js (Untuk Syntax Highlighting Kode) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #7066e0; /* Warna Khas Library Kita */
+            --dark: #0F172A;
+            --light: #F8FAFC;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navbar Sederhana */
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--dark) !important;
+        }
+        .navbar-brand span { color: var(--primary); }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 80px 0;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .hero-title {
+            font-weight: 800;
+            font-size: 3rem;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: #64748B;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Buttons Custom */
+        .btn-custom {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn-custom:hover { transform: translateY(-2px); }
+        .btn-primary-custom { background: var(--primary); color: white; border: none; }
+        .btn-primary-custom:hover { background: #5d54c9; color: white; }
+
+        /* Demo Grid */
+        .demo-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Documentation Code Block */
+        .code-block {
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        pre { margin: 0; }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg py-3">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-chevron-left me-2 text-muted fs-6"></i>
+                Signature<span>Alerts</span>.
+            </a>
+            <div class="ms-auto">
+                <a href="https://github.com" class="text-dark fs-4"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Alert Cantik, Tanpa Ribet.</h1>
+            <p class="hero-desc">
+                Library notifikasi Javascript ringan (2KB) dengan desain modern meniru SweetAlert2. 
+                Tanpa dependensi, tanpa CSS eksternal.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <button onclick="scrollToDemo()" class="btn btn-custom btn-primary-custom shadow-lg">
+                    <i class="fas fa-play me-2"></i> Live Demo
+                </button>
+                <button onclick="scrollToDocs()" class="btn btn-custom btn-outline-dark">
+                    <i class="fas fa-code me-2"></i> Dokumentasi
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section id="demo" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-uppercase text-primary fw-bold tracking-wide">Playground</h6>
+                <h2 class="fw-bold">Cobain Sendiri</h2>
+            </div>
+
+            <div class="row g-4">
+                <!-- Success -->
+                <div class="col-md-3">
+                    <div class="demo-card">
+                        <div class="mb-3 text-success fs-1"><i class="fas fa-check-circle"></i></div>
+                        <h5 class="fw-bold">Success</h5>
+                        <p class="text-muted small">Animasi centang klasik.</p>
+                        <button class="btn btn-sm btn-outline-success w-100 mt-2" onclick="testSuccess()">Run Success</button>
+                    </div>
+                </div>
+                <!-- Error -->
+                <div class="col-md-3">
+                    <div class="demo-card">
+                        <div class="mb-3 text-danger fs-1"><i class="fas fa-times-circle"></i></div>
+                        <h5 class="fw-bold">Error</h5>
+                        <p class="text-muted small">Untuk pesan kegagalan.</p>
+                        <button class="btn btn-sm btn-outline-danger w-100 mt-2" onclick="testError()">Run Error</button>
+                    </div>
+                </div>
+                <!-- Warning -->
+                <div class="col-md-3">
+                    <div class="demo-card">
+                        <div class="mb-3 text-warning fs-1"><i class="fas fa-exclamation-circle"></i></div>
+                        <h5 class="fw-bold">Warning</h5>
+                        <p class="text-muted small">Konfirmasi tindakan penting.</p>
+                        <button class="btn btn-sm btn-outline-warning w-100 mt-2" onclick="testWarning()">Run Warning</button>
+                    </div>
+                </div>
+                <!-- Info -->
+                <div class="col-md-3">
+                    <div class="demo-card">
+                        <div class="mb-3 text-info fs-1"><i class="fas fa-info-circle"></i></div>
+                        <h5 class="fw-bold">Info</h5>
+                        <p class="text-muted small">Informasi umum sistem.</p>
+                        <button class="btn btn-sm btn-outline-info w-100 mt-2" onclick="testInfo()">Run Info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation -->
+    <section id="docs" class="py-5 bg-white border-top">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-4">Cara Penggunaan</h2>
+                    
+                    <p class="text-muted">Cukup panggil fungsi <code>Signature.fire()</code> di dalam script kamu. Library ini sudah menangani Promise, jadi kamu bisa menggunakan <code>.then()</code> atau <code>await</code>.</p>
+
+                    <h5 class="fw-bold mt-5">1. Basic Usage</h5>
+                    <div class="code-block">
+<pre><code class="javascript">// Panggil alert sederhana
+Signature.fire({
+    title: 'Halo!',
+    message: 'Ini adalah pesan alert sederhana.',
+    type: 'info'
+});
+</code></pre>
+                    </div>
+
+                    <h5 class="fw-bold mt-5">2. Async/Await (Menunggu Tombol ditekan)</h5>
+                    <div class="code-block">
+<pre><code class="javascript">async function hapusData() {
+    // Alert akan muncul dan script akan 'pause' di sini
+    await Signature.fire({
+        title: 'Hapus Data?',
+        message: 'Data tidak bisa dikembalikan setelah dihapus.',
+        type: 'warning',
+        buttonText: 'Ya, Hapus'
+    });
+
+    // Kode di bawah ini hanya jalan SETELAH user klik tombol
+    console.log('Data berhasil dihapus!');
+}
+</code></pre>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="text-muted small mb-0">&copy; 2024 Signature Alerts Lib. Part of DevStudio Portfolio.</p>
+        </div>
+    </footer>
+
+
+    <!-- ========================================== -->
+    <!-- THE SIGNATURE ALERT LIBRARY (EMBEDDED) -->
+    <!-- ========================================== -->
+    <script>
+        /**
+         * SIGNATURE ALERT LIBRARY (SweetAlert2 Style)
+         * Versi: 1.0.0
+         * Features: Zero Dependencies, Modern UI, Promise Based.
+         */
+        class SignatureAlert {
+            constructor() {
+                this.injectStyles();
+                this.activeElement = null;
+            }
+
+            // 1. INJECT CSS
+            injectStyles() {
+                if (document.getElementById('signature-alert-style')) return;
+
+                const style = document.createElement('style');
+                style.id = 'signature-alert-style';
+                style.textContent = `
+                    :root {
+                        --sa-bg: #ffffff;
+                        --sa-title: #595959;
+                        --sa-text: #545454;
+                        --sa-primary: #7066e0;
+                        --sa-success: #a5dc86;
+                        --sa-error: #f27474;
+                        --sa-warning: #f8bb86;
+                        --sa-info: #3fc3ee;
+                        --sa-overlay: rgba(0, 0, 0, 0.4);
+                    }
+                    .sa-overlay {
+                        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                        background: var(--sa-overlay);
+                        z-index: 10000;
+                        display: flex; align-items: center; justify-content: center;
+                        opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+                    }
+                    .sa-overlay.show { opacity: 1; visibility: visible; }
+                    .sa-card {
+                        background: var(--sa-bg); width: 90%; max-width: 400px;
+                        padding: 2rem 2.5rem; border-radius: 8px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;
+                        transform: scale(0.7); opacity: 0;
+                        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                        font-family: 'Plus Jakarta Sans', sans-serif;
+                    }
+                    .sa-overlay.show .sa-card { transform: scale(1); opacity: 1; }
+                    
+                    /* Icons */
+                    .sa-icon-box {
+                        width: 80px; height: 80px; margin: 0 auto 1.5rem;
+                        border-radius: 50%; border: 4px solid transparent;
+                        display: flex; align-items: center; justify-content: center;
+                        position: relative; box-sizing: content-box;
+                    }
+                    .sa-icon-success { border-color: var(--sa-success); }
+                    .sa-success-check { width: 100%; height: 100%; position: absolute; }
+                    .sa-success-check polyline {
+                        fill: none; stroke: var(--sa-success); stroke-width: 5;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        stroke-dasharray: 100; stroke-dashoffset: 100;
+                        animation: sa-animate-check 0.5s 0.3s forwards;
+                    }
+                    @keyframes sa-animate-check { 100% { stroke-dashoffset: 0; } }
+
+                    .sa-icon-svg { width: 50px; height: 50px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+                    .sa-icon-error { border-color: var(--sa-error); color: var(--sa-error); }
+                    .sa-icon-warning { border-color: var(--sa-warning); color: var(--sa-warning); }
+                    .sa-icon-info { border-color: var(--sa-info); color: var(--sa-info); }
+
+                    /* Typography & Button */
+                    .sa-title { font-size: 1.8rem; font-weight: 700; color: var(--sa-title); margin-bottom: 0.5rem; }
+                    .sa-message { font-size: 1.1rem; color: var(--sa-text); margin-bottom: 1.5rem; line-height: 1.5; }
+                    .sa-btn {
+                        background: var(--sa-primary); color: white; border: none;
+                        padding: 10px 24px; font-size: 1rem; font-weight: 600;
+                        border-radius: 6px; cursor: pointer; transition: 0.2s;
+                    }
+                    .sa-btn:hover { background: #5d54c9; }
+                    .sa-btn:focus { box-shadow: 0 0 0 4px rgba(112, 102, 224, 0.2); outline: none; }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // 2. GET ICON
+            getIconHtml(type) {
+                if (type === 'success') {
+                    return `<div class="sa-icon-box sa-icon-success"><svg class="sa-success-check" viewBox="0 0 100 100"><polyline points="28,52 45,70 75,33"></polyline></svg></div>`;
+                }
+                const icons = {
+                    error: `<svg class="sa-icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`,
+                    warning: `<svg class="sa-icon-svg" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+                    info: `<svg class="sa-icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`
+                };
+                const iconSvg = icons[type] || icons.info;
+                return `<div class="sa-icon-box sa-icon-${type || 'info'}">${iconSvg}</div>`;
+            }
+
+            // 3. FIRE
+            fire({ title = 'Alert', message = '', type = 'info', buttonText = 'OK' }) {
+                return new Promise((resolve) => {
+                    if (this.activeElement) document.body.removeChild(this.activeElement);
+
+                    const overlay = document.createElement('div');
+                    overlay.className = 'sa-overlay';
+                    overlay.innerHTML = `
+                        <div class="sa-card">
+                            ${this.getIconHtml(type)}
+                            <h2 class="sa-title">${title}</h2>
+                            <p class="sa-message">${message}</p>
+                            <button class="sa-btn">${buttonText}</button>
+                        </div>
+                    `;
+
+                    document.body.appendChild(overlay);
+                    this.activeElement = overlay;
+
+                    // Animation & Event
+                    setTimeout(() => {
+                        overlay.classList.add('show');
+                        const btn = overlay.querySelector('.sa-btn');
+                        btn.focus();
+                        btn.onclick = () => {
+                            overlay.classList.remove('show');
+                            setTimeout(() => {
+                                if (document.body.contains(overlay)) document.body.removeChild(overlay);
+                                resolve(true);
+                            }, 300);
+                        };
+                    }, 10);
+                });
+            }
+        }
+
+        // Init Global
+        window.Signature = new SignatureAlert();
+    </script>
+
+    <!-- Page Scripts -->
+    <script>
+        // Init Syntax Highlighter
+        hljs.highlightAll();
+
+        // Scroll Actions
+        function scrollToDemo() { document.getElementById('demo').scrollIntoView({ behavior: 'smooth' }); }
+        function scrollToDocs() { document.getElementById('docs').scrollIntoView({ behavior: 'smooth' }); }
+
+        // Demo Actions
+        function testSuccess() {
+            Signature.fire({
+                title: 'Berhasil!',
+                message: 'Data kamu telah berhasil disimpan ke database.',
+                type: 'success',
+                buttonText: 'Keren'
+            });
+        }
+
+        function testError() {
+            Signature.fire({
+                title: 'Gagal Login',
+                message: 'Username atau password yang dimasukkan salah.',
+                type: 'error',
+                buttonText: 'Coba Lagi'
+            });
+        }
+
+        function testWarning() {
+            Signature.fire({
+                title: 'Yakin Hapus?',
+                message: 'Data ini tidak bisa dikembalikan lagi loh.',
+                type: 'warning',
+                buttonText: 'Ya, Hapus'
+            });
+        }
+
+        function testInfo() {
+            Signature.fire({
+                title: 'Update Tersedia',
+                message: 'Versi baru 2.0 telah tersedia untuk diunduh.',
+                type: 'info',
+                buttonText: 'Nanti Saja'
+            });
+        }
+    </script>
+</body>
+</html>
