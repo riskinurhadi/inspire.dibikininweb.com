@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Lost in Space</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --text-light: #e2e8f0;
+            --bg-deep: #0f172a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px; /* Untuk efek 3D */
+        }
+
+        /* --- STARS BACKGROUND --- */
+        .stars {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Kita akan generate bintang lewat JS biar random */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* --- CONTENT WRAPPER --- */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        /* --- 404 TEXT (GLITCH EFFECT) --- */
+        .error-code {
+            font-size: 10rem;
+            font-weight: 800;
+            line-height: 1;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+            color: white;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .error-code::before, .error-code::after {
+            content: '404';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #090a0f; /* Match bg to hide parts */
+            mix-blend-mode: screen; /* Trick for glitch */
+        }
+        
+        /* --- FLOATING OBJECTS --- */
+        .object-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Astronaut SVG Container */
+        .astronaut-box {
+            position: absolute;
+            top: 20%; right: 15%;
+            width: 150px;
+            animation: float-astro 6s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
+
+        /* Planet SVG Container */
+        .planet-box {
+            position: absolute;
+            bottom: 15%; left: 10%;
+            width: 120px;
+            opacity: 0.8;
+            animation: float-planet 20s linear infinite;
+        }
+
+        /* Rocket SVG Container */
+        .rocket-box {
+            position: absolute;
+            top: 10%; left: 20%;
+            width: 80px;
+            transform: rotate(45deg);
+            animation: fly-rocket 15s linear infinite;
+        }
+
+        @keyframes float-astro {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        @keyframes float-planet {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fly-rocket {
+            0% { transform: translate(0, 0) rotate(45deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(100vw, -50vh) rotate(45deg); opacity: 0; }
+        }
+
+        /* --- TEXT CONTENT --- */
+        h2 {
+            font-size: 2rem;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* --- BUTTON --- */
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px -5px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 20; /* Ensure clickable */
+        }
+
+        .btn-home:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-home::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-home:hover::after {
+            left: 100%;
+        }
+
+        /* SVG Styles */
+        .svg-illustration {
+            width: 100%;
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Stars Background (Generated by JS) -->
+    <div id="stars-container" class="stars"></div>
+
+    <!-- Parallax Objects Layer -->
+    <div class="object-layer" id="scene">
+        
+        <!-- Object 1: Planet -->
+        <div class="planet-box" data-speed="2">
+            <svg class="svg-illustration" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="50" r="40" fill="#4F46E5" fill-opacity="0.8"/>
+                <circle cx="50" cy="50" r="35" fill="#4338ca"/>
+                <path d="M10 50 Q 50 20 90 50" stroke="#818cf8" stroke-width="5" fill="none" opacity="0.5"/>
+                <circle cx="30" cy="40" r="5" fill="#312e81" opacity="0.3"/>
+                <circle cx="70" cy="60" r="8" fill="#312e81" opacity="0.3"/>
+            </svg>
+        </div>
+
+        <!-- Object 2: Rocket (Flying) -->
+        <div class="rocket-box">
+            <svg class="svg-illustration" viewBox="0 0 50 100">
+                <path d="M25 5 L10 40 L25 35 L40 40 Z" fill="#e2e8f0"/> <!-- Body Top -->
+                <rect x="15" y="40" width="20" height="40" fill="#cbd5e1"/> <!-- Body Main -->
+                <path d="M15 80 L5 95 L15 90 Z" fill="#ef4444"/> <!-- Fin Left -->
+                <path d="M35 80 L45 95 L35 90 Z" fill="#ef4444"/> <!-- Fin Right -->
+                <circle cx="25" cy="55" r="8" fill="#3b82f6" stroke="#1e293b" stroke-width="2"/> <!-- Window -->
+                <path d="M18 90 L25 105 L32 90" fill="orange" class="flame"/> <!-- Flame -->
+            </svg>
+        </div>
+
+        <!-- Object 3: Astronaut (Floating) -->
+        <div class="astronaut-box" data-speed="-2">
+            <svg class="svg-illustration" viewBox="0 0 100 120">
+                <!-- Backpack -->
+                <rect x="20" y="30" width="60" height="50" rx="10" fill="#cbd5e1"/>
+                <!-- Body -->
+                <rect x="25" y="35" width="50" height="55" rx="15" fill="white"/>
+                <!-- Head -->
+                <circle cx="50" cy="35" r="25" fill="white"/>
+                <rect x="30" y="25" width="40" height="25" rx="10" fill="#1e293b"/> <!-- Visor -->
+                <path d="M35 30 Q 50 35 65 30" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/> <!-- Glint -->
+                <!-- Arms -->
+                <path d="M25 45 Q 10 60 15 75" stroke="white" stroke-width="12" stroke-linecap="round" fill="none"/>
+                <path d="M75 45 Q 90 55 85 85" stroke="white" stroke-width="12" stroke-linecap="round" fill="none"/>
+                <!-- Legs -->
+                <path d="M35 85 L 35 110" stroke="white" stroke-width="12" stroke-linecap="round"/>
+                <path d="M65 85 L 65 105" stroke="white" stroke-width="12" stroke-linecap="round"/>
+                <!-- Patch -->
+                <circle cx="50" cy="60" r="5" fill="#ef4444"/>
+            </svg>
+        </div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" data-speed="1">
+        <div class="error-code">404</div>
+        <h2>Houston, Kita Punya Masalah!</h2>
+        <p>
+            Sepertinya kamu tersesat terlalu jauh di antariksa. Halaman yang kamu cari tidak dapat ditemukan di koordinat ini.
+        </p>
+        <a href="index.html" class="btn-home">
+            <i class="fas fa-shuttle-space"></i> Kembali ke Bumi
+        </a>
+    </div>
+
+    <script>
+        // 1. GENERATE STARS
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // Random Position
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            
+            // Random Size
+            const size = Math.random() * 3;
+            
+            // Random Duration for Twinkle
+            const duration = 2 + Math.random() * 3;
+
+            star.style.left = `${x}%`;
+            star.style.top = `${y}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.setProperty('--duration', `${duration}s`);
+
+            starsContainer.appendChild(star);
+        }
+
+        // 2. PARALLAX EFFECT (Mouse Movement)
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+
+            // Move the Planet
+            const planet = document.querySelector('.planet-box');
+            const speedPlanet = planet.getAttribute('data-speed');
+            planet.style.transform = `translateX(${x * speedPlanet}px) translateY(${y * speedPlanet}px)`;
+
+            // Move the Astronaut
+            const astronaut = document.querySelector('.astronaut-box');
+            const speedAstro = astronaut.getAttribute('data-speed');
+            // Keep the rotation/float animation, just add translate
+            // Note: Since CSS animation uses transform, simple JS override might conflict.
+            // Best approach for complex parallax + animation is usually separate containers or modifying margins.
+            // For simplicity here, let's use margin which is safe.
+            astronaut.style.marginRight = `${x * speedAstro}px`;
+            astronaut.style.marginTop = `${y * speedAstro}px`;
+
+            // Move the Text slightly
+            const container = document.querySelector('.container');
+            container.style.transform = `translateX(${x * 0.5}px) translateY(${y * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
